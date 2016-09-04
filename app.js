@@ -1,5 +1,7 @@
 // console.log('app.js handshake');
 
+var i = 0;
+
 $(document).ready(function () {
   console.log('in doc ready');
 
@@ -17,24 +19,40 @@ $(document).ready(function () {
 });//end document ready
 
 var displayStudents = function (students) {
-  console.log('in displayStudents:', students);
-  var output = $('#outputDiv');
-  output.empty();
-  for (var i = 0; i < students.length; i++) {
+    console.log('in displayStudents');
+
+    //select the output div
     var output = $('#outputDiv');
-    output.append('<h2>' + students[i].first_name + ' ' + students[i].last_name + '</h2><h3>' +
-    students[i].info + '</h3>');
-  }//end for
 
-  $('#prev').on('click', function () {
-    console.log('clicked prev');
-    for (var i = 0; i < students.length; i++) {
-      $('#outputDiv').fadeOut();
-    }
+    //empty the output div
+    output.empty();
 
-  });//end prev click
+    //append student info to the dom
+    var outputStuff = function () {
+      if(i > students.length - 1) {
+        i = 0;
+      }
+      if(i < 0) {
+        console.log('in if');
+        i = students.length - 1;
+      }
+      output.append('<h2>' + students[i].first_name + ' ' + students[i].last_name + '</h2><h3>' +
+      students[i].info + '</h3><p>student: ' + (i + 1) + ' / ' + students.length);
+      console.log(i);
+    };
 
-  // $('#next').on('click', function () {
-  // console.log('clicked next');
-  // });//end next click
-};//end displayStudents
+    outputStuff();
+
+    $('#prev').on('click', function () {
+      output.empty();
+      i--;
+      outputStuff();
+    });//end prev click
+
+    $('#next').on('click', function () {
+      output.empty();
+      i++;
+      outputStuff();
+    });//end next click
+
+  };//end displayStudents
