@@ -1,6 +1,10 @@
 // console.log('app.js handshake');
 
 var i = 0;
+var interval = undefined;
+var timer = function () {
+  interval = setInterval(next, 7000)
+};
 
 $(document).ready(function () {
   // console.log('in doc ready');
@@ -16,6 +20,7 @@ $(document).ready(function () {
 
     },//end success
   });//end ajax
+
 });//end document ready
 
 var retrieveStudents = function (students) {
@@ -30,6 +35,13 @@ var retrieveStudents = function (students) {
       //empty the output div
       output.empty();
 
+      //reset timer
+      clearInterval(interval);
+      
+      //restart the timer
+      timer();
+
+      //fadeIn next student information
       output.fadeIn(700);
 
       //reset i so the next button will wrap to the beginning of the array
@@ -51,17 +63,19 @@ var retrieveStudents = function (students) {
 
     displayStudents();
 
-      //click events to trigger next and previous buttons
-      $('#prev').on('click', function () {
-        i--;
-        output.fadeOut(700, displayStudents);
+    //click events to trigger next and previous buttons
+    $('#prev').on('click', function () {
+      i--;
+      output.fadeOut(700, displayStudents);
+    });//end prev click
 
-      });//end prev click
+    $('#next').on('click', next);
 
-      $('#next').on('click', function () {
-        i++;
-        output.fadeOut(700, displayStudents);
-      });//end next click
+    function next () {
+      console.log('in next function');
+      i++;
+      output.fadeOut(700, displayStudents);
+    };//end next function
 
 
     //append buttons with student names
@@ -82,5 +96,10 @@ var retrieveStudents = function (students) {
       output.fadeOut(700, displayStudents);
     });
 
+    var timer = function () {
+      interval = setInterval(next, 7000)
+    };
+
+    timer();
 
   };//end retrieveStudents
