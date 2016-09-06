@@ -35,11 +35,11 @@ var retrieveStudents = function (students) {
       //empty the output div
       output.empty();
 
-      //reset timer
-      clearInterval(interval);
-      
-      //restart the timer
-      timer();
+      // //reset timer
+      // clearInterval(interval);
+
+      // //restart the timer
+      // timer();
 
       //fadeIn next student information
       output.fadeIn(700);
